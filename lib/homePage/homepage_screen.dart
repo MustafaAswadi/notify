@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notify/constants.dart';
 import 'package:notify/db/notes_database.dart';
+import 'package:notify/edit_add_note_screen/edit_add_note_screen.dart';
+import 'package:notify/homePage/components/empty_notes.dart';
 import 'package:notify/model/note.dart';
 
 import 'components/single_note.dart';
@@ -44,7 +46,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             child: isLoading
                 ? const CircularProgressIndicator()
                 : notes.isEmpty
-                    ?  Container()
+                    ? const EmptyNotes()
                     : buildNotes(),
           ),
         ),
@@ -87,8 +89,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         onDismissed: (direction) async {
                           await NotesDatabase.instance.deleteNote(note.id);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content:
-                                const Text('your note will be save'),
+                            content: const Text('your note will be save'),
                             action: SnackBarAction(
                               onPressed: () async {
                                 await NotesDatabase.instance.insertNote(Note(
@@ -126,7 +127,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             color: note.color,
                             createdAt: note.createdAt,
                             onTap: () async {
-                              print("go to edit page");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditAddNoteScreen(
+                                    note: note,
+                                  ),
+                                ),
+                              );
                               refreshNotes();
                             })),
                   );
