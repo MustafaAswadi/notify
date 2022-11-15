@@ -42,7 +42,7 @@ class _EditAddNoteScreenState extends State<EditAddNoteScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (widget.note != null)
-                  Text("Ultima modifica: " +
+                  Text("modification time: " +
                       DateFormat('dd-MM-yyyy - kk:mm')
                           .format(widget.note!.createdAt)),
                 ColorRadioButton(
@@ -61,7 +61,7 @@ class _EditAddNoteScreenState extends State<EditAddNoteScreen> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 30),
                     decoration: const InputDecoration(
-                      hintText: "Titolo",
+                      hintText: "Title",
                       border: InputBorder.none,
                     ),
                     minLines: 1,
@@ -74,7 +74,6 @@ class _EditAddNoteScreenState extends State<EditAddNoteScreen> {
                       style: const TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 20),
                       decoration: const InputDecoration(
-                        hintText: "Scrivi qualcosa...",
                         border: InputBorder.none,
                       ),
                       minLines: 20,
@@ -96,10 +95,13 @@ class _EditAddNoteScreenState extends State<EditAddNoteScreen> {
         backgroundColor: kYellow,
         onPressed: () {
           if (_content.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
                 content: Text(
-              "inserisci contenuto",
-            )));
+                  "inserting",
+                ),
+              ),
+            );
           } else {
             addNote();
             Navigator.pop(context);
