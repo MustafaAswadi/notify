@@ -3,6 +3,8 @@ import 'package:notify/constants.dart';
 import 'package:notify/db/notes_database.dart';
 import 'package:notify/model/note.dart';
 
+import 'components/single_note.dart';
+
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
 
@@ -86,7 +88,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           await NotesDatabase.instance.deleteNote(note.id);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content:
-                                const Text('Something went wrong'),
+                                const Text('your note will be save'),
                             action: SnackBarAction(
                               onPressed: () async {
                                 await NotesDatabase.instance.insertNote(Note(
@@ -117,7 +119,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             color: Colors.red[400],
                           ),
                         ),
-                        child: Container()),
+                        child: SingleNote(
+                            id: note.id,
+                            title: note.title,
+                            content: note.content.trim(),
+                            color: note.color,
+                            createdAt: note.createdAt,
+                            onTap: () async {
+                              print("go to edit page");
+                              refreshNotes();
+                            })),
                   );
                 },
               ),
