@@ -55,6 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           elevation: 0,
           child: const Icon(Icons.add),
           onPressed: () async {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const EditAddNoteScreen()));
             refreshNotes();
           },
         ),
